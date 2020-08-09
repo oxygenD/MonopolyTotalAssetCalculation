@@ -1,0 +1,2 @@
+# MonopolyTotalAssetCalculation
+モノポリーをプレイする際にプレイヤーごとの総資産を管理するアプリ
