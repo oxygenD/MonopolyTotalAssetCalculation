@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>プレイヤー情報登録 | SocymSlimMonopoly</title>
+    </head>
+    <body>
+        <header>
+            <h1>プレイヤー情報登録</h1>
+        </header>
+        <section>
+            <p>
+                情報を入力し、登録ボタンをクリックしてください。
+            </p>
+            <form action="/playerAdd" method="post">
+                <label for="addplayerName">
+                    プレイヤー名&nbsp;
+                    <input type="text" id="addplayerName" name="addplayerName" required>
+                </label>
+                <button type="submit">登録</button>
+            </form>
+        </section>
+    </body>
+</html>
