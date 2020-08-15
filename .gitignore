@@ -1,1 +1,4 @@
 vendor/
+bootstrappers.php
+classes/exceptions/CustomErrorRenderer.php
+classes/exceptions/DataAccessException.php
