@@ -41,7 +41,7 @@ class PlayerController
 
         // リクエストパラメータを取得
         $postParams = $request->getParsedBody();
-        $addName = $postParams["addName"];
+        $addName = $postParams["addname"];
 
         $addName = trim($addName);
 
