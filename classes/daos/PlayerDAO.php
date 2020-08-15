@@ -33,7 +33,7 @@ class PlayerDAO
         $stmt = $this->db->prepare($sqlInsert);
 
         // 変数をバインド
-        $stmt->bindValue(":player_name", $player->getPlayerName(), PDO::PARAM_STR);
+        $stmt->bindValue(":player_name", $player->getName(), PDO::PARAM_STR);
 
         // SQLの実行
         $result = $stmt->execute();

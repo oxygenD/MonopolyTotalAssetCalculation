@@ -41,13 +41,13 @@ class PlayerController
 
         // リクエストパラメータを取得
         $postParams = $request->getParsedBody();
-        $addPlayerName = $postParams["addplayerName"];
+        $addName = $postParams["addName"];
 
-        $addPlayerName = trim($addPlayerName);
+        $addName = trim($addName);
 
         // リクエストパラメータをエンティティに格納する
         $player = new Player();
-        $player->setPlayerName($addPlayerName);
+        $player->setName($addName);
 
         try {
             // PDOインスタンスをコンテナから取得

@@ -6,7 +6,7 @@ class Player
 {
 
     private $id;
-    private $playerName;
+    private $name;
     private $playerTotalAsset;
 
     public function getId(): ?int
@@ -19,14 +19,14 @@ class Player
         $this->id = $id;
     }
 
-    public function getPlayerName(): ?String
+    public function getName(): ?String
     {
-        return $this->playerName;
+        return $this->name;
     }
 
-    public function setPlayerName(?String $playerName): void
+    public function setName(?String $name): void
     {
-        $this->playerName = $playerName;
+        $this->name = $name;
     }
 
     public function getPlayerTotalAsset(): ?int
