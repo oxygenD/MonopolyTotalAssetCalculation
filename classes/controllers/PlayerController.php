@@ -81,4 +81,34 @@ class PlayerController
         return $response;
 
     }
+
+    // プレイヤー情報一覧表示
+    public function showPlayerList(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
+    {
+        // テンプレート変数を格納する連想配列
+        $assign = [];
+
+        try {
+            // PDOインスタンスをコンテナから取得
+            $db = $this->container->get("db");
+
+            $playerDao = new PlayerDAO($db);
+            $playerList = $playerDao->findAll();
+        } catch (PDOException $ex) {
+            $assign["msg"] = "障害が発生しました。";
+            var_dump($ex);
+        } finally {
+
+            // DB切断
+            $db = null;
+        }
+        // テンプレート変数として会員情報リストを格納
+        $assign["playerList"] = $playerList;
+
+        // Twigインタスタンスをコンテナから取得
+        $twig = $this->container->get("view");
+        $response = $twig->render($response, "playerList.html", $assign);
+
+        return $response;
+    }
 }

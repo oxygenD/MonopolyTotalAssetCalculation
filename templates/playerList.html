@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>プレイヤー情報リスト | SocymSlimMonopoly</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        
+        th,
+        td {
+            border: solid 1px black;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>プレイヤー情報リスト</h1>
+    </header>
+    <section>
+        <!-- エラーの場合 -->
+        {% if msg %}
+        <p>{{msg}}</p>
+        {% else %}
+        <table>
+            <thead>
+                <tr>
+                    <th>プレイヤーID</th>
+                    <th>プレイヤー名</th>
+                    <th>総資産</th>
+                    <th>資産登録</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for id, player in playerList %}
+                <tr>
+                    <td>{{id}}</td>
+                    <td>{{player.name}}</td>
+                    <td>{{player.totalAsset}}</td>
+                    <td><a href="/goRegisterAssetInfo/{{id}}">資産登録</a></td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="3">表示するプレイヤー情報はありません。</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </section>
+
+    <section>
+        <p>
+            新規プレイヤーの登録は<a href="/goPlayerAdd">こちら</a>から。
+        </p>
+    </section>
+</body>
+
+</html>
