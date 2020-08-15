@@ -7,7 +7,7 @@ class Player
 
     private $id;
     private $name;
-    private $playerTotalAsset;
+    private $totalAsset;
 
     public function getId(): ?int
     {
@@ -29,13 +29,13 @@ class Player
         $this->name = $name;
     }
 
-    public function getPlayerTotalAsset(): ?int
+    public function getTotalAsset(): ?int
     {
-        return $this->playerTotalAsset;
+        return $this->totalAsset;
     }
 
-    public function setPlayerTotalAsset(?int $playerTotalAsset): void
+    public function setTotalAsset(?int $totalAsset): void
     {
-        $this->playerTotalAsset = $playerTotalAsset;
+        $this->totalAsset = $totalAsset;
     }
 }
