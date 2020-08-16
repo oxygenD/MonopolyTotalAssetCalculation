@@ -39,6 +39,9 @@ class PlayerController
     // プレイヤー情報を登録するメソッド
     public function playerAdd(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
 
+        // リダイレクトするかどうかのフラグ
+        $isRedirect = false;
+
         // リクエストパラメータを取得
         $postParams = $request->getParsedBody();
         $addName = $postParams["addname"];
@@ -62,6 +65,7 @@ class PlayerController
 
                 // 成功メッセージを作成
                 $content = "ID " . $playerId . "で登録が完了しました";
+                $isRedirect =true;
 
             } else {
                 // 失敗メッセージを作成
@@ -74,9 +78,16 @@ class PlayerController
             // DB切断
             $db = null;
         }
+
+        if ($isRedirect) {
+            // リスト表示ヘリダイレクト
+            $response = $response->withHeader("Location", "/showPlayerList");
+            $response = $response->withStatus(302);
+        } else {
             // 表示メッセージをレスポンスオブジェクトに格納
             $responseBody = $response->getBody();
             $responseBody->write($content);
+        }
         
         return $response;
 
