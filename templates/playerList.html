@@ -31,6 +31,7 @@
                     <th>プレイヤーID</th>
                     <th>プレイヤー名</th>
                     <th>総資産</th>
+                    <th>相続税</th>
                     <th>資産登録</th>
                 </tr>
             </thead>
@@ -40,6 +41,7 @@
                     <td>{{id}}</td>
                     <td>{{player.name}}</td>
                     <td>{{player.totalAsset}}</td>
+                    <td>{{player.inheritanceTax}}</td>
                     <td><a href="/goRegisterAssetInfo/{{id}}">資産登録</a></td>
                 </tr>
                 {% else %}

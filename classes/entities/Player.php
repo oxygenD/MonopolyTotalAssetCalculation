@@ -8,6 +8,7 @@ class Player
     private $id;
     private $name;
     private $totalAsset;
+    private $inheritanceTax;
 
     public function getId(): ?int
     {
@@ -37,5 +38,15 @@ class Player
     public function setTotalAsset(?int $totalAsset): void
     {
         $this->totalAsset = $totalAsset;
+    }
+
+    public function getInheritanceTax(): ?int
+    {
+        return $this->inheritanceTax;
+    }
+
+    public function setInheritanceTax(?int $inheritanceTax): void
+    {
+        $this->inheritanceTax = $inheritanceTax;
     }
 }
