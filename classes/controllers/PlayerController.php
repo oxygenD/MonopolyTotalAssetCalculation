@@ -122,4 +122,16 @@ class PlayerController
 
         return $response;
     }
+
+    // 資産登録画面を表示する
+    public function goRegisterAssetInfo(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
+    {
+        // Twigインスタンスをコンテナから取得
+        $twig = $this->container->get("view");
+
+        // レスポンスオブジェクトの作成
+        $response = $twig->render($response, "AssetInfoRegister.html");
+
+        return $response;
+    }
 }
