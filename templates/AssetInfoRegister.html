@@ -18,6 +18,31 @@
                     <input type="text" id="cash" name="cash" required>
                 </label>
                 <button type="submit">登録</button>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>物件ID</th>
+                            <th>物件名</th>
+                            <th>基本価格</th>
+                            <th>プレイヤーID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for id, property in propertyList %}
+                        <tr>
+                            <td>{{id}}</td>
+                            <td>{{property.name}}</td>
+                            <td>{{property.basicPrice}}</td>
+                            <td>{{property.playerID}}</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="3">表示する物件情報はありません。</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </form>
         </section>
     </body>
