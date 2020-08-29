@@ -2,7 +2,6 @@
 
 namespace SocymSlim\Monopoly\controllers;
 
-use PDO;
 use PDOException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
