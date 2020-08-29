@@ -5,6 +5,6 @@ $app->any("/goPlayerAdd", PlayerController::class.":goPlayerAdd");
 $app->any("/playerAdd", PlayerController::class.":playerAdd");
 $app->any("/showPlayerList", PlayerController::class.":showPlayerList");
 // プレイヤーの資産情報を登録する画面を表示する
-$app->any("/goRegisterAssetInfo/{id}", PlayerController::class.":goRegisterAssetInfo");
+$app->any("/goUpdateAssetInfo/{id}", PlayerController::class.":goUpdateAssetInfo");
 // プレイヤーの資産情報を登録する
-$app->any("/RegisterAssetInfo/{id}", PlayerController::class.":RegisterAssetInfo");
+$app->any("/UpdateAssetInfo/{id}", PlayerController::class.":UpdateAssetInfo");

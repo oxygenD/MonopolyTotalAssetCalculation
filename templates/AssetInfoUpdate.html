@@ -2,17 +2,13 @@
 <html lang="ja">
     <head>
         <meta charset="UTF-8">
-        <title>資産情報登録 | SocymSlimMonopoly</title>
+        <title>資産情報更新 | SocymSlimMonopoly</title>
     </head>
     <body>
-        <header>
-            <h1>資産情報登録</h1>
-        </header>
+        <h1>資産情報更新</h1>
+        <h2>現金と土地、物件の状態を更新してください</h2>
         <section>
-            <p>
-                資産情報を登録してください
-            </p>
-            <form action="/RegisterAssetInfo" method="post">
+            <form action="/UpdateAssetInfo" method="post">
                 <label for="cash">
                     現金&nbsp;
                     <input type="text" id="cash" name="cash" required>
@@ -52,7 +48,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
-                <button type="submit">登録</button>
+                <button type="submit">更新</button>
             </form>
         </section>
     </body>

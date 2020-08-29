@@ -125,11 +125,11 @@ class PlayerController
     }
 
     // 資産登録画面を表示する。※条件付き物件一覧画面とも言える。現状、システムの規模が小さいので良いが。
-    public function goRegisterAssetInfo(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
+    public function goUpdateAssetInfo(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
 
         // 表示先テンプレートのファイルパス
-        $templatePath = "AssetInfoRegister.html";
+        $templatePath = "AssetInfoUpdate.html";
 
         // テンプレート変数を格納する連想配列
         $assign = [];
