@@ -17,24 +17,33 @@
                     現金&nbsp;
                     <input type="text" id="cash" name="cash" required>
                 </label>
-                <button type="submit">登録</button>
 
                 <table>
                     <thead>
                         <tr>
+                            <th>所有</th>
                             <th>物件ID</th>
                             <th>物件名</th>
                             <th>基本価格</th>
-                            <th>プレイヤーID</th>
+                            <th>物件状態</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for id, property in propertyList %}
                         <tr>
+                            <td><input type="checkbox" name="ownership" value="1"></td>
                             <td>{{id}}</td>
                             <td>{{property.name}}</td>
                             <td>{{property.basicPrice}}</td>
-                            <td>{{property.playerID}}</td>
+                            <td><select name="propertyState">
+                                <option value="1" selected>基本</option>
+                                <option value="2">1軒</option>
+                                <option value="3">2軒</option>
+                                <option value="4">3軒</option>
+                                <option value="5">4軒</option>
+                                <option value="6">ホテル</option>
+                                <option value="7">抵当</option>
+                                </select></td>
                         </tr>
                         {% else %}
                         <tr>
@@ -43,6 +52,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
+                <button type="submit">登録</button>
             </form>
         </section>
     </body>
