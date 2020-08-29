@@ -38,7 +38,7 @@ class PropertyController
             $db = $this->container->get("db");
             $propertyDAO = new PropertyDAO($db);
 
-            $property = $propertyDAO->find($playerId);
+            $property = $propertyDAO->findNotOwnedByOthers($playerId);
 
             
             // データが存在する場合

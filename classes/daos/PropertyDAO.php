@@ -19,14 +19,15 @@ class PropertyDAO
     
     // プレイヤーが保有するか、或いは誰も保有していない物件を取得する。
     // 適切な命名を考えること
-    public function find(int $id): array
+    public function findNotOwnedByOthers(int $id): array
     {
         // プレイヤーが所有しているか、もしくは売れていない物件リストを格納する
         $propertyList = [];
         // データ取得用SQLを文字列で用意。
         // 画面アクセスしたプレイヤーが所有しているか、誰も所有していない物件を条件とする。
+        $sqlSelect = "SELECT * FROM properties WHERE player_id = $id or player_id IS null ORDER BY property_id ASC";
         // $sqlSelect = "SELECT * FROM properties WHERE player_id = $id or null ORDER BY id";
-        $sqlSelect = "SELECT * FROM properties";
+        // $sqlSelect = "SELECT * FROM properties";
         // プリペアードステートメントインスタンスを取得
         $stmt = $this->db->prepare($sqlSelect);
         // SQLの実行
