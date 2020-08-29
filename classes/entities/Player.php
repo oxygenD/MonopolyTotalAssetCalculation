@@ -10,6 +10,15 @@ class Player
     private $totalAsset;
     private $inheritanceTax;
 
+    // プレイ開始時の所持金額は一律1億5000万円
+    const FIRST_TOTAL_ASSET = 15000;
+
+
+    public function __construct() {
+
+        $this->totalAsset = self::FIRST_TOTAL_ASSET;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
