@@ -122,4 +122,60 @@ class PlayerController
 
         return $response;
     }
+
+    // プレイヤーを削除する
+    public function playerDelete(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
+
+        // リダイレクトするかどうかのフラグ
+        $isRedirect = false;
+        // テンプレート変数を格納する連想配列
+        $assign = [];
+
+        // URL中のパラメータを取得
+        $playerId = $args["id"];
+
+        try {
+            // PDOインスタンスをコンテナから取得
+            $db = $this->container->get("db");
+
+            $playerDAO = new PlayerDAO($db);
+            $deleteSuccess = $playerDAO->deleteByPK($playerId);
+
+            // 削除が成功した場合
+            if ($deleteSuccess) {
+
+                // 成功メッセージを作成
+                $content = "ID " . $playerId . "で削除が完了しました";
+
+                // リダイレクトフラグをonにする
+                $isRedirect = true;
+            } else {
+                // 失敗メッセージを作成
+                throw new DataAccessException("削除に失敗しました。");
+            }
+        } catch (PDOException $ex) {
+
+            $exCode = $ex->getCode();
+            throw new DataAccessException("データベース処理中に障害が発生しました。", $exCode, $ex);
+        } finally {
+
+            // DB切断
+            $db = null;
+        }
+
+        if ($isRedirect) {
+            // リスト表示ヘリダイレクト
+            $response = $response->withHeader("Location", "/showPlayerList");
+            $response = $response->withStatus(302);
+        } else {
+            // 表示メッセージをレスポンスオブジェクトに格納
+            $responseBody = $response->getBody();
+            $responseBody->write($content);
+        }
+
+        return $response;
+        
+    }
+
+
 }
