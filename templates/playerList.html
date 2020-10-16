@@ -42,11 +42,11 @@
                     <td>{{player.name}}</td>
                     <td>{{player.totalAsset}}</td>
                     <td>{{player.inheritanceTax}}</td>
-                    <td><a href="/goRegisterAssetInfo/{{id}}">資産登録</a></td>
+                    <td><a href="/goUpdateAssetInfo/{{id}}">資産登録</a></td>
                 </tr>
                 {% else %}
                 <tr>
-                    <td colspan="3">表示するプレイヤー情報はありません。</td>
+                    <td colspan="5">表示するプレイヤー情報はありません。</td>
                 </tr>
                 {% endfor %}
             </tbody>

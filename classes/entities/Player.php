@@ -10,6 +10,17 @@ class Player
     private $totalAsset;
     private $inheritanceTax;
 
+    // プレイ開始時の所持金額は一律1億5000万円。最低単位が10万円なので1500としている
+    const FIRST_TOTAL_ASSET = 1500;
+    // 相続税は全資産に対して、10%かかる
+    const INHERITANCE_TAX = 0.1;
+
+
+    public function __construct() {
+
+        $this->totalAsset = self::FIRST_TOTAL_ASSET;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -42,7 +53,7 @@ class Player
 
     public function getInheritanceTax(): ?int
     {
-        return $this->inheritanceTax;
+        return ($this->totalAsset) * self::INHERITANCE_TAX;
     }
 
     public function setInheritanceTax(?int $inheritanceTax): void

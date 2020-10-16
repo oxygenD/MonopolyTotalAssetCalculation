@@ -22,11 +22,15 @@ class PlayerDAO
         // 登録用SQLを文字列で用意
         $sqlInsert = "INSERT INTO
         players(
-            player_name
+            player_name,
+            player_total_asset,
+            inheritance_tax
         )
         VALUES
         (
-            :player_name
+            :player_name,
+            :player_total_asset,
+            :inheritance_tax
         );";
 
         // プリペアードステートメントインスタンスを取得
@@ -34,6 +38,8 @@ class PlayerDAO
 
         // 変数をバインド
         $stmt->bindValue(":player_name", $player->getName(), PDO::PARAM_STR);
+        $stmt->bindValue(":player_total_asset", $player->getTotalAsset(), PDO::PARAM_INT);
+        $stmt->bindValue(":inheritance_tax", $player->getInheritanceTax(), PDO::PARAM_INT);
 
         // SQLの実行
         $result = $stmt->execute();
@@ -69,6 +75,7 @@ class PlayerDAO
                 $id = $row["id"];
                 $name = $row["player_name"];
                 $totalAsset = $row["player_total_asset"];
+                $inheritanceTax = $row["inheritance_tax"];
 
                 // Playerエンティティインスタンスを生成
                 $player = new Player();
@@ -76,6 +83,7 @@ class PlayerDAO
                 $player->setId($id);
                 $player->setName($name);
                 $player->setTotalAsset($totalAsset);
+                $player->setInheritanceTax($inheritanceTax);
 
                 // Playerエンティティを会員情報リスト連想配列に格納
                 $playerList[$id] = $player;

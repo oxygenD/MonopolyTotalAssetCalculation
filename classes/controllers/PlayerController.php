@@ -2,13 +2,13 @@
 
 namespace SocymSlim\Monopoly\controllers;
 
-use PDO;
 use PDOException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Container\ContainerInterface;
 use SocymSlim\Monopoly\entities\Player;
 use SocymSlim\Monopoly\daos\PlayerDAO;
+use SocymSlim\Monopoly\daos\PropertyDAO;
 use SocymSlim\Monopoly\exceptions\DataAccessException;
 
 class PlayerController

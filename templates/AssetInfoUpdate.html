@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>資産情報更新 | SocymSlimMonopoly</title>
+    </head>
+    <body>
+        <h1>資産情報更新</h1>
+        <h2>現金と土地、物件の状態を更新してください</h2>
+        <section>
+            <form action="/UpdateAssetInfo" method="post">
+                <label for="cash">
+                    現金&nbsp;
+                    <input type="text" id="cash" name="cash" pattern="\d*" required>&nbsp; × 10万円
+                </label>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>所有</th>
+                            <th>物件ID</th>
+                            <th>物件名</th>
+                            <th>基本価格</th>
+                            <th>物件状態</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for id, property in propertyList %}
+                        <tr>
+                            <td><input type="checkbox" name="ownership" value="1"></td>
+                            <td>{{id}}</td>
+                            <td>{{property.name}}</td>
+                            <td>{{property.basicPrice}}</td>
+                            <td><select name="propertyState">
+                                <option value="1" selected>基本</option>
+                                <option value="2">1軒</option>
+                                <option value="3">2軒</option>
+                                <option value="4">3軒</option>
+                                <option value="5">4軒</option>
+                                <option value="6">ホテル</option>
+                                <option value="7">抵当</option>
+                                </select></td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="3">表示する物件情報はありません。</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <button type="submit">更新</button>
+            </form>
+        </section>
+    </body>
+</html>
