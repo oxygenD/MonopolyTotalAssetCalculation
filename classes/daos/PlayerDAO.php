@@ -91,4 +91,29 @@ class PlayerDAO
         }
         return $playerList;
     }
+
+    // データ削除メソッド
+    public function deleteByPK(int $id)
+    {
+
+        // 削除SQLを文字列で用意
+        $sqlDelete = "DELETE FROM
+        players WHERE id = :id";
+
+        // プリペアードステートメントインスタンスを取得
+        $stmt = $this->db->prepare($sqlDelete);
+        // 変数をバインド
+        $stmt->bindvalue(":id", $id, PDO::PARAM_INT);
+        // SQLの実行
+        $result = $stmt->execute();
+
+        // 初期値は削除フラグをfalseとする
+        $deleteFlg = false;
+
+        if ($result) {
+            $deleteFlg = true;
+        }
+
+        return $deleteFlg;
+    }
 }
