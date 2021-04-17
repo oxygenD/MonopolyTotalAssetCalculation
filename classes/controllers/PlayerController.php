@@ -168,13 +168,16 @@ class PlayerController
             $db = $this->container->get("db");
 
             $playerDAO = new PlayerDAO($db);
+
+            $playerName = $playerDAO->findByPk($playerId)->getName();
+
             $deleteSuccess = $playerDAO->deleteByPK($playerId);
 
             // 削除が成功した場合
             if ($deleteSuccess) {
 
                 // 成功メッセージを作成
-                $content = "ID " . $playerId . "で削除が完了しました";
+                $content = $playerName . "で削除が完了しました";
 
                 // リダイレクトフラグをonにする
                 $isRedirect = true;
