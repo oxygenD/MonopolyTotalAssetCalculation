@@ -68,7 +68,7 @@ class PlayerController
             if ($playerId !== -1) {
 
                 // 成功メッセージを作成
-                $content = "ID " . $playerId . "で登録が完了しました";
+                $content = $addName . "で登録が完了しました";
                 $isRedirect =true;
 
                 // flashインスタンスをコンテナから取得し、Register providerに登録
@@ -126,9 +126,22 @@ class PlayerController
         // テンプレート変数として会員情報リストを格納
         $assign["playerList"] = $playerList;
 
-        // 登録成功時のメッセージを格納する
+        
         $this->flash = $this->container->get("flash");
-        $assign["successMessage"] = $this->flash ? $this->flash->getFirstMessage('addSuccess') : null;
+
+        // 登録成功時のメッセージを格納する
+        if (key($this->flash->getMessages()) === 'addSuccess') {
+
+            $assign["successMessage"] = $this->flash ? $this->flash->getFirstMessage('addSuccess') : null;
+
+        }
+
+        // 削除成功時のメッセージを格納する
+        if (key($this->flash->getMessages()) === 'deleteSuccess') {
+
+            $assign["successMessage"] = $this->flash ? $this->flash->getFirstMessage('deleteSuccess') : null;
+
+        }
 
         // Twigインタスタンスをコンテナから取得
         $twig = $this->container->get("view");
@@ -144,6 +157,8 @@ class PlayerController
         $isRedirect = false;
         // テンプレート変数を格納する連想配列
         $assign = [];
+
+        session_start();
 
         // URL中のパラメータを取得
         $playerId = $args["id"];
@@ -163,6 +178,10 @@ class PlayerController
 
                 // リダイレクトフラグをonにする
                 $isRedirect = true;
+
+                // flashインスタンスをコンテナから取得し、Register providerに登録
+                $this->flash = $this->container->get("flash");
+                $this->flash->addMessage('deleteSuccess',$content);
             } else {
                 // 失敗メッセージを作成
                 throw new DataAccessException("削除に失敗しました。");
