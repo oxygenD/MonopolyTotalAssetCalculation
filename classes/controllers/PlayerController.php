@@ -17,6 +17,9 @@ class PlayerController
     // コンテナインスタンス
     private $container;
 
+    // フラッシュ
+    private $flash;
+
     public function __construct(ContainerInterface $container)
     {
         // 引数のコンテナインスタンスをプロパティに格納
@@ -42,6 +45,8 @@ class PlayerController
         // リダイレクトするかどうかのフラグ
         $isRedirect = false;
 
+        session_start();
+
         // リクエストパラメータを取得
         $postParams = $request->getParsedBody();
         $addName = $postParams["addname"];
@@ -66,6 +71,10 @@ class PlayerController
                 // 成功メッセージを作成
                 $content = "ID " . $playerId . "で登録が完了しました";
                 $isRedirect =true;
+
+                // flashインスタンスをコンテナから取得し、Register providerに登録
+                $this->flash = $this->container->get("flash");
+                $this->flash->addMessage('addSuccess',$content);
 
             } else {
                 // 失敗メッセージを作成
@@ -99,6 +108,8 @@ class PlayerController
         // テンプレート変数を格納する連想配列
         $assign = [];
 
+        session_start();
+
         try {
             // PDOインスタンスをコンテナから取得
             $db = $this->container->get("db");
@@ -115,6 +126,11 @@ class PlayerController
         }
         // テンプレート変数として会員情報リストを格納
         $assign["playerList"] = $playerList;
+
+        // 登録成功時のメッセージを格納する
+        $this->flash = $this->container->get("flash");
+        $message = $this->flash ? $this->flash->getMessages() : null;
+        $assign["successMessage"] = $message['addSuccess'][0];
 
         // Twigインタスタンスをコンテナから取得
         $twig = $this->container->get("view");
