@@ -128,8 +128,7 @@ class PlayerController
 
         // 登録成功時のメッセージを格納する
         $this->flash = $this->container->get("flash");
-        $message = $this->flash ? $this->flash->getMessages() : null;
-        $assign["successMessage"] = $message['addSuccess'][0];
+        $assign["successMessage"] = $this->flash ? $this->flash->getFirstMessage('addSuccess') : null;
 
         // Twigインタスタンスをコンテナから取得
         $twig = $this->container->get("view");
