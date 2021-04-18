@@ -8,7 +8,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Container\ContainerInterface;
 use SocymSlim\Monopoly\entities\Player;
 use SocymSlim\Monopoly\daos\PlayerDAO;
-use SocymSlim\Monopoly\daos\PropertyDAO;
 use SocymSlim\Monopoly\exceptions\DataAccessException;
 
 class PlayerController
@@ -16,6 +15,9 @@ class PlayerController
 
     // コンテナインスタンス
     private $container;
+
+    // フラッシュ
+    private $flash;
 
     public function __construct(ContainerInterface $container)
     {
@@ -42,6 +44,8 @@ class PlayerController
         // リダイレクトするかどうかのフラグ
         $isRedirect = false;
 
+        session_start();
+
         // リクエストパラメータを取得
         $postParams = $request->getParsedBody();
         $addName = $postParams["addname"];
@@ -64,8 +68,12 @@ class PlayerController
             if ($playerId !== -1) {
 
                 // 成功メッセージを作成
-                $content = "ID " . $playerId . "で登録が完了しました";
+                $content = $addName . "で登録が完了しました";
                 $isRedirect =true;
+
+                // flashインスタンスをコンテナから取得し、Register providerに登録
+                $this->flash = $this->container->get("flash");
+                $this->flash->addMessage('addSuccess',$content);
 
             } else {
                 // 失敗メッセージを作成
@@ -99,6 +107,8 @@ class PlayerController
         // テンプレート変数を格納する連想配列
         $assign = [];
 
+        session_start();
+
         try {
             // PDOインスタンスをコンテナから取得
             $db = $this->container->get("db");
@@ -116,6 +126,23 @@ class PlayerController
         // テンプレート変数として会員情報リストを格納
         $assign["playerList"] = $playerList;
 
+        
+        $this->flash = $this->container->get("flash");
+
+        // 登録成功時のメッセージを格納する
+        if (key($this->flash->getMessages()) === 'addSuccess') {
+
+            $assign["successMessage"] = $this->flash ? $this->flash->getFirstMessage('addSuccess') : null;
+
+        }
+
+        // 削除成功時のメッセージを格納する
+        if (key($this->flash->getMessages()) === 'deleteSuccess') {
+
+            $assign["successMessage"] = $this->flash ? $this->flash->getFirstMessage('deleteSuccess') : null;
+
+        }
+
         // Twigインタスタンスをコンテナから取得
         $twig = $this->container->get("view");
         $response = $twig->render($response, "playerList.html", $assign);
@@ -131,6 +158,8 @@ class PlayerController
         // テンプレート変数を格納する連想配列
         $assign = [];
 
+        session_start();
+
         // URL中のパラメータを取得
         $playerId = $args["id"];
 
@@ -139,16 +168,23 @@ class PlayerController
             $db = $this->container->get("db");
 
             $playerDAO = new PlayerDAO($db);
+
+            $playerName = $playerDAO->findByPk($playerId)->getName();
+
             $deleteSuccess = $playerDAO->deleteByPK($playerId);
 
             // 削除が成功した場合
             if ($deleteSuccess) {
 
                 // 成功メッセージを作成
-                $content = "ID " . $playerId . "で削除が完了しました";
+                $content = $playerName . "で削除が完了しました";
 
                 // リダイレクトフラグをonにする
                 $isRedirect = true;
+
+                // flashインスタンスをコンテナから取得し、Register providerに登録
+                $this->flash = $this->container->get("flash");
+                $this->flash->addMessage('deleteSuccess',$content);
             } else {
                 // 失敗メッセージを作成
                 throw new DataAccessException("削除に失敗しました。");

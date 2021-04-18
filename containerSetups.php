@@ -2,6 +2,7 @@
 
 use DI\Container;
 use Slim\Factory\AppFactory;
+use Slim\Flash;
 use Slim\Views\Twig;
 
 
@@ -12,6 +13,15 @@ $container->set(
     function () {
         $twig = Twig::create($_SERVER["DOCUMENT_ROOT"] . "/../templates");
         return $twig;
+    }
+);
+
+// フラッシュメッセージ
+$container->set(
+    "flash",
+    function () {
+        $flashMessage = new Flash\Messages();
+        return $flashMessage;
     }
 );
 
