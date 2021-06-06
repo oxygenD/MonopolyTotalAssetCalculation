@@ -153,6 +153,13 @@ class PlayerController
 
         }
 
+        // 既に同名で登録されている場合のメッセージを格納する
+        if (key($this->flash->getMessages()) === 'addSuccessFailed') {
+
+            $assign["failedMessage"] = $this->flash ? $this->flash->getFirstMessage('addSuccessFailed') : null;
+
+        }
+
         // 削除成功時のメッセージを格納する
         if (key($this->flash->getMessages()) === 'deleteSuccess') {
 
