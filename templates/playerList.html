@@ -33,7 +33,6 @@
         <table>
             <thead>
                 <tr>
-                    <th>プレイヤーID</th>
                     <th>プレイヤー名</th>
                     <th>総資産</th>
                     <th>相続税</th>
@@ -44,7 +43,6 @@
             <tbody>
                 {% for id, player in playerList %}
                 <tr>
-                    <td>{{id}}</td>
                     <td>{{player.name}}</td>
                     <td>{{player.totalAsset}}</td>
                     <td>{{player.inheritanceTax}}</td>
