@@ -61,6 +61,23 @@ class PlayerController
             $db = $this->container->get("db");
             $playerDao = new PlayerDAO($db);
 
+            $conflictPlayer = $playerDao->findByName($addName);
+
+            if (!is_null($conflictPlayer)) {
+
+                $content = $addName . "は登録済みです";
+
+                // flashインスタンスをコンテナから取得し、Register providerに登録
+                $this->flash = $this->container->get("flash");
+                $this->flash->addMessage('addSuccessFailed',$content);
+
+                $response = $response->withHeader("Location", "/showPlayerList");
+                $response = $response->withStatus(302);
+
+                return $response;
+
+            }
+
             // データ登録
             $playerId = $playerDao->insert($player);
 
