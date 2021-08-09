@@ -126,6 +126,40 @@ class PlayerDAO
         return $player;
     }
 
+    // 名前で検索
+    public function findByName(string $name)
+    {
+        // データ取得用SQLを文字列で用意
+        $sqlSelect = "SELECT * FROM players WHERE player_name = :player_name";
+        // プリペアードステートメントインスタンスを取得
+        $stmt = $this->db->prepare($sqlSelect);
+        // 変数をバインド
+        $stmt->bindvalue(":player_name", $name, PDO::PARAM_STR);
+        // SQLの実行
+        $result = $stmt->execute();
+
+        // SQL実行が成功したとき
+        if ($result && $row = $stmt->fetch()) {
+
+                // 各カラムのデータ取得
+                $id = $row["id"];
+                $name = $row["player_name"];
+                $totalAsset = $row["player_total_asset"];
+                $inheritanceTax = $row["inheritance_tax"];
+
+                // Playerエンティティインスタンスを生成
+                $player = new Player();
+
+                $player->setId($id);
+                $player->setName($name);
+                $player->setTotalAsset($totalAsset);
+                $player->setInheritanceTax($inheritanceTax);
+
+            }
+    
+        return $player;
+    }
+
     // データ削除メソッド
     public function deleteByPK(int $id)
     {

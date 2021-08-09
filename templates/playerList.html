@@ -20,7 +20,11 @@
     <header>
         <h1>プレイヤー情報リスト</h1>
     </header>
-    {{successMessage}}
+    {% if successMessage %}
+    <p>{{successMessage}}</p>
+    {% else %}
+    <p style="color:red">{{failedMessage}}</p>
+    {% endif %}
     <section>
         <!-- エラーの場合 -->
         {% if msg %}
@@ -29,7 +33,6 @@
         <table>
             <thead>
                 <tr>
-                    <th>プレイヤーID</th>
                     <th>プレイヤー名</th>
                     <th>総資産</th>
                     <th>相続税</th>
@@ -40,7 +43,6 @@
             <tbody>
                 {% for id, player in playerList %}
                 <tr>
-                    <td>{{id}}</td>
                     <td>{{player.name}}</td>
                     <td>{{player.totalAsset}}</td>
                     <td>{{player.inheritanceTax}}</td>
